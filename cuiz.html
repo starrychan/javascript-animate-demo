@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>cuize</title>
+	<style>
+	#dd{
+		width: 50px;
+		height: 50px;
+		background-color: red;
+		position: absolute;
+		top: 20px;
+		left: 20px;
+	}
+	#d1{
+		width: 50px;
+		height: 50px;
+		background-color: blue;
+		position: absolute;
+		top: 150px;
+		left: 20px;
+	}
+	#d2{
+		width: 50px;
+		height: 50px;
+		background-color: green;
+		position: absolute;
+		top: 300px;
+		left: 20px;
+	}
+	</style>
+	</head>
+	<body>
+		<div id="dd">easeOut</div>
+		<div id="d1">easeIn</div>
+		<div id="d2">easeInOut</div>
+	<script>
+		function $(id){
+			return document.getElementById(id);
+		};
+		function easeOut(t, b, c, d){
+			return c * (( t = t / d - 1 ) * t * t + 1 ) + b ;
+		};
+		function easeIn(t, b, c, d) {
+			c = c - b;
+            return b - c * (Math.sqrt(1 - (t /= d) * t) - 1);
+        };
+        function easeInOut(t, b, c, d) {
+         if ((t /= d / 2) < 1) return - c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
+            return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
+        }
+
+
+		$('dd').onclick = function(){
+			var n = 0;
+			var tt = setInterval(function(){
+				n ++;
+				$('dd').style.left = Math.round(easeOut(n,20,1000,100)) + 'px';
+				if(parseInt($('dd').style.left) >= 1000){
+					clearInterval(tt);
+					return;
+				}
+			},10);
+		};
+		$('d1').onclick = function(){
+			var n =0;
+			var tt= setInterval(function(){
+				n++;
+				$('d1').style.left = Math.round(easeIn(n,20,1000,100)) + 'px';
+				if(parseInt($('d1').style.left) >= 1000){
+					clearInterval(tt);
+					return;
+				}
+			},10);
+		};
+		$('d2').onclick = function(){
+			var n =0;
+			var tt= setInterval(function(){
+				n++;
+				$('d2').style.left = Math.round(easeInOut(n,20,1000,100)) + 'px';
+				if(parseInt($('d2').style.left) >= 1000){
+					clearInterval(tt);
+					return;
+				}
+			},10);
+		}
+	</script>
+	</body>
+</html>
